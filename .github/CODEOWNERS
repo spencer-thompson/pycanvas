@@ -3,6 +3,7 @@
 # @global-owner1 and @global-owner2 will be requested for
 # review when someone opens a pull request.
 *   @spencer-thompson
+*   @sturm1619
 
 # Can add *.py to be owner of python files.
 # Can also specify files
