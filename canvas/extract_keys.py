@@ -1,3 +1,5 @@
+''''''
+
 import requests
 import os
 
@@ -16,24 +18,15 @@ def courses(token, enrollment_state = 'active'):
 
     return r.json()
 
-def extract_keys_as_parameters():
-    '''This function might not work'''
+def main():
+    '''Exports the keys from the json object as a list of attribute assignments'''
     user = User()
-    js_array = courses(user.token)
+    json_object = courses(user.token)
     file = open('keys.txt', 'w')
-    for element in js_array:
+    for element in json_object:
         print(element['name'])
-    for key in js_array[1]:
-        file.writelines(f'\t\t{key},\n')
+    for key in json_object[1]:
+        file.writelines(f'self.{key} = dictionary[\'{key}\']\n')
 
-def extract_keys_as_attributes():
-    '''This function might not work'''
-    user = User()
-    js_array = courses(user.token)
-    file = open('keys.txt', 'w')
-    for element in js_array:
-        print(element['name'])
-    for key in js_array[1]:
-        file.writelines(f'\t\t\tself.{key} = {key},\n')
-
-extract_keys_as_parameters()
+if __name__ == "__main__":
+    main()
