@@ -86,17 +86,6 @@ def courses(token, enrollment_state = 'active'):
 
     return r.json()
 
-def extract_keys():
-    # print(courses())
-    user = User()
-    courses = courses(user.token)
-    #file = open('course_info.txt', 'w')
-    for course in courses:
-        print(course['name'])
-        #course_dict = dict(course)
-    for key in user.courses[1]:
-        file.writelines(f'\t\t{key},\n')
-
 def main():
      user = User()
      courses = courses(user.token)
