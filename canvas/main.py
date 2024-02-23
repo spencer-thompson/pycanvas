@@ -148,8 +148,8 @@ class Assignment:
 def main():
      user = User()
      user.get_courses()
-     user.get_assignments()
-     print(user.assignments)
-
+     for course in user.courses:
+         print(course)
+         
 if __name__ == "__main__":
     main()
