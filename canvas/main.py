@@ -21,8 +21,10 @@ class User:
         r = requests.get(
             self.url + "/courses" + f"?enrollment_type={enrollment_type}&enrollment_state={enrollment_state}",
             headers={"Authorization": f"Bearer {self.token}"})
+        num = 0
         for course in r.json():
-            self.courses.append(Course(course))
+            num += 1
+            self.courses.append(Course(course, num))
         return r.json() #in case you still want to work with the dictionary
     
     def get_assignments(self, enrollment_type: str = "student", enrollment_state: str = "active"):
@@ -39,7 +41,8 @@ class User:
 
 class Course:
     '''New class for storing attributes related to the courses.'''
-    def __init__(self, dictionary):
+    def __init__(self, dictionary, num):
+        self.num = num
         self.id = dictionary['id']
         self.name = dictionary['name']
         self.account_id = dictionary['account_id']
@@ -76,7 +79,7 @@ class Course:
         return f'Course({self.name}, {self.id})'
     
     def  __str__(self):
-        return f'{self.name}'
+        return f'{self.num: <5}. {self.name}'
 
 class Assignment:
     def __init__(self, dictionary):
