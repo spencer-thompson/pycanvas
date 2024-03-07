@@ -33,13 +33,14 @@ class User:
             headers={"Authorization": f"Bearer {self.token}"},
         )
         num = 0
+        input(r.json())
         for course in r.json():
             num += 1
             self.courses.append(Course(course, num))
         return r.json()  # in case you still want to work with the dictionary
 
     def get_assignments(
-        self, enrollment_type: str = "student", enrollment_state: str = "active"
+        self, enrollment_type: str = "student", enrollment_state: str = "active", bucket: str = 'upcoming'
     ):
         """Get all the courses for the user. It doesn't work"""
         r = requests.get(
@@ -47,7 +48,7 @@ class User:
             + "/courses"
             + f"/{self.courses[0].id}"
             + "//assignments"
-            + f"?enrollment_type={enrollment_type}&enrollment_state={enrollment_state}",
+            + f"?enrollment_type={enrollment_type}&enrollment_state={enrollment_state}&bucket={bucket}",
             headers={"Authorization": f"Bearer {self.token}"},
         )
         for assignment in r.json():
@@ -186,6 +187,9 @@ def main():
     user.get_courses()
     for course in user.courses:
         print(course)
+    user.get_assignments()
+    for assignment in user.assignments:
+        print(assignment)
 
 
 if __name__ == "__main__":
